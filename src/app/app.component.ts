@@ -10,6 +10,10 @@ import { ForeCastDay } from './app-api';
 export class AppComponent implements OnInit {
   constructor(private api: AppApiService) {}
 
+  formValue = {
+    input: 'jakarta',
+  };
+
   condition!: string;
   imageUrl!: string;
   windMph!: number;
@@ -24,7 +28,11 @@ export class AppComponent implements OnInit {
   predictionItems!: ForeCastDay[];
 
   ngOnInit() {
-    this.api.getData().subscribe((data) => {
+    this.getData();
+  }
+
+  getData() {
+    this.api.getData(this.formValue.input).subscribe((data) => {
       console.log(data);
       this.condition = data.current.condition.text;
       this.imageUrl = data.current.condition.icon;
@@ -38,7 +46,6 @@ export class AppComponent implements OnInit {
       this.maxTempF = data.forecast.forecastday[0].day.maxtemp_f;
       this.minTempF = data.forecast.forecastday[0].day.mintemp_f;
       this.predictionItems = sliceArray(data.forecast.forecastday);
-      console.log(this.predictionItems);
     });
   }
 }

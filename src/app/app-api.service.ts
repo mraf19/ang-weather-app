@@ -14,9 +14,9 @@ export class AppApiService {
     )
     .pipe(shareReplay(1));
 
-  getData() {
+  getData(city: string) {
     return this.http.get<AppApi>(
-      `https://api.weatherapi.com/v1/forecast.json?key=36befd1cb138498097803738232408&q=bandung&days=5&aqi=no&alerts=no`
+      `https://api.weatherapi.com/v1/forecast.json?key=36befd1cb138498097803738232408&q=${city}&days=5&aqi=no&alerts=no`
     );
   }
 }
